@@ -1,7 +1,7 @@
 package interactionhandler
 
 import (
-    "mdhesari/discordgo-bot-kit/config"
+    "github.com/flytegg/plugin-portal-bot/config"
 )
 
 type Handler struct {

@@ -1,8 +1,9 @@
 package config
 
 type Discord struct {
-    GuildID string
-    Token   string
+    GuildID      string
+    Token        string
+    PPAdminToken string
 }
 
 type Config struct {

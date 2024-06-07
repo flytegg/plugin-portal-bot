@@ -1,4 +1,4 @@
-module mdhesari/discordgo-bot-kit
+module github.com/flytegg/plugin-portal-bot
 
 go 1.21.5
 

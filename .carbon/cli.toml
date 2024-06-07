@@ -1,0 +1,7 @@
+url = "https://panel.flyte.gg"
+
+[server]
+id = "63116f3c"
+
+[deploy]
+file = "./bin/bot/plugin-portal-bot"

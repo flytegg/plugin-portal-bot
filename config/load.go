@@ -1,7 +1,6 @@
 package config
 
 import (
-    "fmt"
     "github.com/joho/godotenv"
     "os"
 )
@@ -12,13 +11,11 @@ func Load() Config {
         return Config{}
     }
 
-    fmt.Println("Loading ENV", os.Getenv("GUILD_ID"))
-    fmt.Println("TOKEN: ", os.Getenv("BOT_TOKEN"))
-
     return Config{
         Discord{
-            GuildID: os.Getenv("GUILD_ID"),
-            Token:   os.Getenv("BOT_TOKEN"),
+            GuildID:      os.Getenv("GUILD_ID"),
+            Token:        os.Getenv("BOT_TOKEN"),
+            PPAdminToken: os.Getenv("PP_ADMIN_TOKEN"),
         },
     }
 

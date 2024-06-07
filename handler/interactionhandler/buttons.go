@@ -28,7 +28,11 @@ func (h Handler) HandleButtonInteraction(s *discordgo.Session, i *discordgo.Inte
         return
     }
 
-    res, err := http.Post(url, "application/json", nil)
+    // POST to url with headers
+    req, err := http.NewRequest("POST", url, nil)
+    req.Header.Set("Authorization", "Bearer "+h.config.PPAdminToken)
+
+    res, err := http.DefaultClient.Do(req)
     if err != nil || res.StatusCode != http.StatusOK {
         log.Printf("Failed to perform action %s on %s: %v", action, mongoId, err)
         return
