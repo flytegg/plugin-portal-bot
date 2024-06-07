@@ -12,7 +12,8 @@ func Load() Config {
         return Config{}
     }
 
-    fmt.Println(os.Getenv("BOT_TOKEN"))
+    fmt.Println("Loading ENV", os.Getenv("GUILD_ID"))
+    fmt.Println("TOKEN: ", os.Getenv("BOT_TOKEN"))
 
     return Config{
         Discord{
