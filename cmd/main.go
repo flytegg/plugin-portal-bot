@@ -2,6 +2,7 @@ package main
 
 import (
     "flag"
+    "fmt"
     "github.com/joho/godotenv"
     "log"
     "mdhesari/discordgo-bot-kit/config"
@@ -10,6 +11,7 @@ import (
     "mdhesari/discordgo-bot-kit/handler/messagehandler"
     "os"
     "os/signal"
+    "strings"
     "syscall"
 
     "github.com/bwmarrin/discordgo"
@@ -28,6 +30,12 @@ func main() {
     err := godotenv.Load()
     if err != nil {
         return
+    }
+
+    fmt.Println()
+    for _, e := range os.Environ() {
+        pair := strings.SplitN(e, "=", 2)
+        fmt.Println(pair[0])
     }
 
     // add as many handlers as you want implementing websocketserver.Handler...
