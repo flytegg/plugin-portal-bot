@@ -1,17 +1,16 @@
 package config
 
 type Discord struct {
-	Name    string `koanf:"name"`
-	GuildID string `koanf:"guild_id"`
-	Token   string `koanf:"token"`
+    GuildID string
+    Token   string
 }
 
 type Config struct {
-	Discord Discord `koanf:"discord"`
+    Discord Discord
 }
 
 func New(discord Discord) Config {
-	return Config{
-		Discord: discord,
-	}
+    return Config{
+        Discord: discord,
+    }
 }

@@ -1,22 +1,21 @@
 package config
 
 import (
-	"github.com/knadh/koanf/parsers/yaml"
-	"github.com/knadh/koanf/providers/file"
-	"github.com/knadh/koanf/v2"
+    "github.com/joho/godotenv"
+    "os"
 )
 
-func Load(path string) Config {
-	var k = koanf.New(".")
+func Load() Config {
+    err := godotenv.Load(".env")
+    if err != nil {
+        return Config{}
+    }
 
-	if err := k.Load(file.Provider(path), yaml.Parser()); err != nil {
-		panic(err)
-	}
+    return Config{
+        Discord{
+            GuildID: os.Getenv("GUILD_ID"),
+            Token:   os.Getenv("BOT_TOKEN"),
+        },
+    }
 
-	var cfg Config
-	if err := k.Unmarshal("", &cfg); err != nil {
-		panic(err)
-	}
-
-	return cfg
 }
