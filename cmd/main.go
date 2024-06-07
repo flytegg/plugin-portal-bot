@@ -2,6 +2,7 @@ package main
 
 import (
     "flag"
+    "github.com/joho/godotenv"
     "log"
     "mdhesari/discordgo-bot-kit/config"
     "mdhesari/discordgo-bot-kit/delivery/websocketserver"
@@ -24,6 +25,11 @@ func init() {
 }
 
 func main() {
+    err := godotenv.Load()
+    if err != nil {
+        return
+    }
+
     // add as many handlers as you want implementing websocketserver.Handler...
     handlers := []websocketserver.Handler{
         messagehandler.New(&cfg.Discord),
