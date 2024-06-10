@@ -1,6 +1,7 @@
 package messagehandler
 
 import (
+    "fmt"
     "github.com/bwmarrin/discordgo"
     "log"
     "net/http"
@@ -17,11 +18,19 @@ func (h Handler) DuplicateEmbedReply(s *discordgo.Session, msg *discordgo.Messag
     }
 
     var mongoId = msg.Embeds[0].Fields[2].Value
+    fmt.Println(mongoId)
 
-    res, err := http.Get("http://localhost:8080/v1/duplicates?id=" + mongoId)
-    if err != nil {
+    // POST to url with headers
+    req, err := http.NewRequest("GET", "https://api.pluginportal.link/v1/duplicates?id="+mongoId, nil)
+    req.Header.Set("Authorization", "Bearer "+h.config.PPAdminToken)
+
+    res, err := http.DefaultClient.Do(req)
+    if err != nil || res.StatusCode != http.StatusOK {
+        log.Printf("Failed to perform action %s on %s: %v", mongoId, err)
         return
     }
+
+    fmt.Println(res.StatusCode)
 
     var embed = discordgo.MessageEmbed{
         Description: "Would you like to merge this duplicate?",

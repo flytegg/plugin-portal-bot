@@ -20,15 +20,14 @@ func (h Handler) HandleButtonInteraction(s *discordgo.Session, i *discordgo.Inte
 
     switch action {
     case "merge":
-        url = "http://localhost:8080/v1/duplicates/merge?id=" + mongoId
+        url = "https://api.pluginportal.link/v1/duplicates/merge?id=" + mongoId
     case "cancel":
-        url = "http://localhost:8080/v1/duplicates/cancel?id=" + mongoId
+        url = "https://api.pluginportal.link/v1/duplicates/cancel?id=" + mongoId
     default:
         log.Println("Unknown action:", action)
         return
     }
 
-    // POST to url with headers
     req, err := http.NewRequest("POST", url, nil)
     req.Header.Set("Authorization", "Bearer "+h.config.PPAdminToken)
 
