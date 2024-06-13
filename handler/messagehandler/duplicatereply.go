@@ -18,15 +18,21 @@ func (h Handler) DuplicateEmbedReply(s *discordgo.Session, msg *discordgo.Messag
     }
 
     var mongoId = msg.Embeds[0].Fields[2].Value
-    fmt.Println(mongoId)
 
-    // POST to url with headers
     req, err := http.NewRequest("GET", "https://api.pluginportal.link/v1/duplicates?id="+mongoId, nil)
+    if err != nil {
+        log.Println("Failed to create request:", err)
+        return
+    }
+
     req.Header.Set("Authorization", "Bearer "+h.config.PPAdminToken)
+
+    log.Println()
 
     res, err := http.DefaultClient.Do(req)
     if err != nil || res.StatusCode != http.StatusOK {
-        log.Printf("Failed to perform action %s on %s: %v", mongoId, err)
+        log.Println("STATUS CODE:", res.StatusCode)
+        log.Printf("Failed to perform action %s on %s", mongoId, err)
         return
     }
 
